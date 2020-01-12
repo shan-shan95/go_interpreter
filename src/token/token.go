@@ -5,8 +5,8 @@ const (
 	EOF     = "EOF"
 
 	// 識別子・リテラル
-	INDENT = "INDENT"
-	INT    = "INT"
+	IDENT = "IDENT"
+	INT   = "INT"
 
 	// 演算子
 	ASSIGN = "="
@@ -31,4 +31,16 @@ type TokenType string
 type Token struct {
 	Type    TokenType
 	Literal string
+}
+
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+func LookupIdent(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
 }
